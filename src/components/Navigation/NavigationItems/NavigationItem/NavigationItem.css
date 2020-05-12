@@ -1,0 +1,49 @@
+
+/* These classes are meant to look good on mobile */
+.NavigationItem {
+    margin: 10px 0; /* So there is some spacing between my links */
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+}
+
+.NavigationItem a{
+    color: #8F5C2C;
+    text-decoration: none;/* so it does not have the underline */
+    width: 100%;
+    box-sizing: border-box;/* To make sure that the height really includes the padding and the border */
+    display: block; /* so my heght has an effect */
+}
+
+.NavigationItem a:hover,
+.NavigationItem a:active, /* these are links that are clicked on */
+.NavigationItem a.active{
+    color: #40A4C8;
+}
+
+
+/* Media query for desktop device */
+@media(min-width: 500px){
+    .NavigationItem {
+        margin: 0;
+        display: flex;/* To make sure we can center the link inside the list item vertically */
+        height: 100%; /* because he has a special ideea about how he wants to have active links look */
+        width: auto;/* To not use a width of 100% which is se for mobile */
+        align-items: center; /* because we set display flex */
+    }
+    
+    .NavigationItem a{
+        color:white;
+        height: 100%;
+        padding: 16px 10px;
+        border-bottom: 4x solid transparent;/* this is invisible  but it will become important once we actually highligh a link (we hover over it)*/
+    }
+    
+    .NavigationItem a:hover,
+    .NavigationItem a:active, /* these are links that are clicked on */
+    .NavigationItem a.active{
+        background-color: #8F5C2C;
+        border-bottom: 4px solid #40A4C8;
+        color: white;
+    }
+}

@@ -1,0 +1,38 @@
+/* We want to build this application mobile first so this .Tooblar is for mobile */
+.Toolbar {
+    height: 56px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #703B09;
+    display: flex;/* so that all the items in the toolbar are alligned  next to each other because the default 
+                directional flexbox is row (positioning elements next to each other)
+                even if ther are  block elements
+                CHECK OUT ARTICLES ABOUT FLEXBOX*/
+    justify-content: space-between;/*  this justify-content property defines how elements which are rapped by the toolbar
+                        (in our case) should be spread out 
+                        spave-between so that the available space is fille with the elements inside this
+                            toolbar element in the end an they can keep some distance from each other*/
+    align-items: center;/* detemines how the sould be aligned vertically  */
+    padding: 0 20px;
+    box-sizing: border-box;/* we set this border-box to make sure that toolbar is sized correctly even with paddig */
+    z-index: 90; /* This needs to be lowe than the number picked for the backdrop because the backdrop should go above the toolbar */
+}
+
+/* //TODO Check without this or change the number */
+.Toolbar nav{
+    height: 100%; /* so that in the navigation i can set the height relative to the toolbar height and ca make sure that the navigation items span the full height of this toolbar*/
+
+}
+
+.Logo {
+    height: 80%;
+}
+
+/* This is for small devices so that the toolbar is not visible*/
+@media (max-width: 499px){
+    .DesktopOnly{
+        display: none;
+    }
+}
