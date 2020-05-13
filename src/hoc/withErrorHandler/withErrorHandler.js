@@ -16,17 +16,27 @@ const withErrorHandler = (WrappedComponent, axios) => {
         //This idea is to execute this code when the component is getting created
         //This method is obsoliie but you can put it in the constroctor then
         componentWillMount() {
-            axios.interceptors.request.use(req => {
+            this.reqInterceptor = axios.interceptors.request.use(req => {
                 this.setState({ error: null })
+                console.log("COMPONENT WILL MOUNT REQUEST INTERCEPTOPR")
                 return req;
             });
             //This worked gread for POST requests in the componentDidMount
             //This is the scenario where the link is broken 
-            axios.interceptors.response.use(res => res, error => {
+            this.resInterceptors = axios.interceptors.response.use(res => res, error => {
                 this.setState({ error: error })
-                return 
+                return
             });
         };
+
+        // THIS IS FOR PREVENTING MEMORY LEAKS
+        //This is a lifecycle method which is executed at the point of time a component isn't required anymore
+        // We want to remove an interceptor here because (WATCH VIDEO 185)
+        componentWillUnmount() {
+            console.log('will unomunt', this.reqInterceptor, this.resInterceptors)//watch for the namings because console will not give you warning ant it will still work
+            axios.interceptors.request.eject(this.reqInterceptor);
+            axios.interceptors.response.eject(this.resInterceptors);
+        }
 
         errorConfirmedHandler = () => {
             this.setState({ error: null })
@@ -38,7 +48,7 @@ const withErrorHandler = (WrappedComponent, axios) => {
                     <Modal
                         show={this.state.error}
                         modalClosed={this.errorConfirmedHandler}>
-                        { this.state.error ? this.state.error.message : null }
+                        {this.state.error ? this.state.error.message : null}
                     </Modal>
                     <WrappedComponent {...this.props} />
                 </Fragment>

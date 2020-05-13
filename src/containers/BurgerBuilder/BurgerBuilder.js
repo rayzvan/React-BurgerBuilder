@@ -30,11 +30,13 @@ class BurgerBuilder extends Component {
     }
 
     componentDidMount() {
-        axios.get('https://react-burger-6687a.firebaseio.com/ingredients.jsonaaaa')
+        axios.get('https://react-burger-6687a.firebaseio.com/ingredients.json')
             .then(response => {
+                console.log(response.data);
                 this.setState({ ingredients: response.data })
             })
             .catch(error => {
+                console.log("ON TEH BURGER BUILDER CATCH: "  + error);
                 this.setState({ error: true });
             })
     }
@@ -159,7 +161,7 @@ class BurgerBuilder extends Component {
                         order={this.purchaseHandler}
                         price={this.state.price} />
                 </Fragment>
-            );
+            )
 
             orderSummary = (
                 <OrderSummary
