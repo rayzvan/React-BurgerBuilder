@@ -34,6 +34,7 @@ const withErrorHandler = (WrappedComponent, axios) => {
         // We want to remove an interceptor here because (WATCH VIDEO 185)
         componentWillUnmount() {
             console.log('will unomunt', this.reqInterceptor, this.resInterceptors)//watch for the namings because console will not give you warning ant it will still work
+            //This just ensures that wenever we do not need the burger builder component anymore 
             axios.interceptors.request.eject(this.reqInterceptor);
             axios.interceptors.response.eject(this.resInterceptors);
         }

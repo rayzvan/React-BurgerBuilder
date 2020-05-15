@@ -1,0 +1,26 @@
+import React from 'react'
+import { render } from 'react-dom'
+import Burger from '../../Burger/Burger'
+import Button from '../../UI/Button/Button'
+import classes from './CheckoutSummary.css'
+
+const checkoutSummary = (props) => {
+
+    return (
+        <div className={classes.CheckoutSummary}>
+            <h1>We hope it tastes well!</h1>
+            {/* Widht is 100% to take advantage of the full width of Checkout summary component */}
+            <div style={{ width: '100&', margin: 'auto' }}>
+                <Burger ingredients={props.ingredients} />
+            </div>
+            <Button
+                btnType="Danger"
+                clicked>CANCEL</Button>
+            <Button
+                btnType="Success"
+                clicked>CONTINUE</Button>
+        </div>
+    );
+}
+
+export default checkoutSummary;
