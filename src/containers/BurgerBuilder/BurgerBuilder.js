@@ -137,7 +137,16 @@ class BurgerBuilder extends Component {
         //         console.log(error);
         //     });
 
-        this.props.history.push({pathname:'/checkoutSummary'})
+        const queryParams = [];
+        for(let i in this.state.ingredients){
+            //EncodeURIComponent encodes my elements in such a way it can be used in the URL
+            queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
+        }
+        const queryString = queryParams.join('&');
+        this.props.history.push({
+            pathname:'/checkoutSummary',
+            search: queryString
+        })
         
     }
 
