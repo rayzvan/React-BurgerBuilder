@@ -1,0 +1,19 @@
+.ContactData {
+    margin: 20px auto; /* top and buttom are 20px and is centered with auto */
+    width: 80%;
+    text-align: center;
+    box-shadow: 0 2px 3px #ccc;
+    border: 1px solid #eee;
+    box-sizing: border-box;
+}
+
+.Input{
+    display: block; /* (Before They were in a row) This will automatically add a line wrap (will bone in a line) because now it's a block element*/
+}
+
+/* For limiting on big devices */
+@media (min-width: 600px) {
+    .ContactData{
+        width: 500px;
+    }
+}

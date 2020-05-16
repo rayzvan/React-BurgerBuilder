@@ -36,7 +36,7 @@ class BurgerBuilder extends Component {
                 this.setState({ ingredients: response.data })
             })
             .catch(error => {
-                console.log("ON TEH BURGER BUILDER CATCH: "  + error);
+                console.log("ON TEH BURGER BUILDER CATCH: " + error);
                 this.setState({ error: true });
             })
     }
@@ -138,16 +138,16 @@ class BurgerBuilder extends Component {
         //     });
 
         const queryParams = [];
-        for(let i in this.state.ingredients){
+        for (let i in this.state.ingredients) {
             //EncodeURIComponent encodes my elements in such a way it can be used in the URL
             queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
         }
         const queryString = queryParams.join('&');
         this.props.history.push({
-            pathname:'/checkoutSummary',
+            pathname: '/checkoutSummary',
             search: queryString
         })
-        
+
     }
 
     render() {
