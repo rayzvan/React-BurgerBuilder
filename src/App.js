@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Layout from './hoc/Layout/Layout';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 import Checkout from './containers/Checkout/Checkout';
+import { Route } from 'react-router-dom'
 
 
 class App extends Component {
@@ -23,8 +24,9 @@ class App extends Component {
       <div>
         <Layout>
           {/* {this.state.show ? <BurgerBuilder /> : null} */}
-          <BurgerBuilder />
-          <Checkout />
+          {/* If we want to use without exact we need to use a Switchm because if we go to checkOutSummary the BurgerBuilder will also be loaded  */}
+          <Route path='/' exact component={BurgerBuilder} />
+          <Route path='/checkoutSummary' component={Checkout} />
         </Layout>
       </div>
     );
