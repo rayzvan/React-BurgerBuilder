@@ -106,42 +106,12 @@ class BurgerBuilder extends Component {
     }
 
     purchaseContinueHandler = () => {
-        //alert('You have continued!');
-
-        this.setState({ loading: true });
-
-        const order = {
-            ingredients: this.state.ingredients,
-            //!!!! **** This price needs to be calculated on the server so that the user cannot manipulate the price you are using ****!!!!!
-            price: this.state.price,
-            customer: {
-                name: 'Lavric Razvan',
-                address: {
-                    street: 'Test Street',
-                    zipCode: '455300',
-                    country: 'Germany'
-                },
-                email: 'tesst@gmail.com',
-            },
-            delivery: 'fastes'
-        }
-
-        // the .json is for firbase, this is to function correctly
-        // axios.post('/orders.json', order)
-        //     .then(response => {
-        //         console.log(response);
-        //         this.setState({ loading: false, purchasing: false });
-        //     })
-        //     .catch(error => {
-        //         this.setState({ loading: false, purchasing: false });
-        //         console.log(error);
-        //     });
-
         const queryParams = [];
         for (let i in this.state.ingredients) {
             //EncodeURIComponent encodes my elements in such a way it can be used in the URL
             queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
         }
+        queryParams.push('price=' + this.state.price)
         const queryString = queryParams.join('&');
         this.props.history.push({
             pathname: '/checkoutSummary',
