@@ -7,12 +7,59 @@ import Input from '../../../components/UI/Input/Input'
 
 class ContactData extends Component {
 
+    //TODO Investigate how can we make a js functions wo we call for each objec to create does properties, si we don't have all that dupicated code
     state = {
-        name: '',
-        email: '',
-        address: {
-            street: '',
-            postaclCode: ''
+        orderForm: {
+            name: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Your Name'
+                },
+                value: ''
+            },
+            street: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Street'
+                },
+                value: ''
+            },
+            zipCode: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'ZIP Code'
+                },
+                value: ''
+            },
+            country: {//TODO Make country a dropdown, he said we can use some third party libraries (i do not know if it is for the dropdown or for getting all the countrie)
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Country'
+                },
+                value: ''
+            },
+            email: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'emal',
+                    placeholder: 'Your Email'
+                },
+                value: ''
+            },
+            delivery: {
+                elementType: 'select',
+                elementConfig: {
+                    options: [
+                        { value: 'fastest', displayValue: 'Fastes' },
+                        { value: 'cheapest', displayValue: 'Cheapest' }
+                    ]
+                },
+                value: ''
+            }
         },
         loading: false
     }
@@ -25,16 +72,6 @@ class ContactData extends Component {
             ingredients: this.props.ingredients,
             //!!!! **** This price needs to be calculated on the server so that the user cannot manipulate the price you are using ****!!!!!
             price: this.props.price,
-            customer: {
-                name: 'Lavric Razvan',
-                address: {
-                    street: 'Test Street',
-                    zipCode: '455300',
-                    country: 'Germany'
-                },
-                email: 'tesst@gmail.com',
-            },
-            delivery: 'fastes'
         }
 
         //the .json is for firbase, this is to function correctly
@@ -52,12 +89,23 @@ class ContactData extends Component {
     }
 
     render() {
+        const formEelementsArray = [];
+        for (let key in this.state.orderForm) {
+            formEelementsArray.push({
+                id: key,
+                config: this.state.orderForm[key]
+            })
+        }
+
         let form = (
             <form>
-                <Input inputtype="input" type="text" name="name" placeholder="Your Name" />
-                <Input inputtype="input" type="email" name="email" placeholder="Your Mai" />
-                <Input inputtype="input" type="text" name="street" placeholder="Street" />
-                <Input inputtype="input" type="text" name="postal" placeholder="Postal Code" />
+                {formEelementsArray.map(formElement => (
+                    <Input
+                        key={formElement.id}
+                        elementType={formElement.config.elementType}
+                        elementConfig={formElement.config.elementConfig}
+                        value={formElement.config.value} />
+                ))}
                 <Button btnType="Success" clicked={this.orderHandler}>ORDER</Button>
             </form>
         );
