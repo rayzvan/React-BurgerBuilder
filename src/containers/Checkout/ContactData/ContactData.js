@@ -68,10 +68,17 @@ class ContactData extends Component {
         event.preventDefault();//To prevent the default which is to send a request which we do not want because it will reload our form
         //alert('You have continued!');
         this.setState({ loading: true });
+
+        const formData = {};
+        for (let formElementIdentifier in this.state.orderForm){
+            formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value;
+        };
+
         const order = {
             ingredients: this.props.ingredients,
             //!!!! **** This price needs to be calculated on the server so that the user cannot manipulate the price you are using ****!!!!!
             price: this.props.price,
+            orderData: formData
         }
 
         //the .json is for firbase, this is to function correctly
@@ -112,7 +119,7 @@ class ContactData extends Component {
         }
 
         let form = (
-            <form>
+            <form onSubmit={this.orderHandler}>
                 {formEelementsArray.map(formElement => (
                     <Input
                         key={formElement.id}
@@ -121,7 +128,7 @@ class ContactData extends Component {
                         value={formElement.config.value}
                         changed={(event) => this.inputChangedHandler(event, formElement.id)} />
                 ))}
-                <Button btnType="Success" clicked={this.orderHandler}>ORDER</Button>
+                <Button btnType="Success">ORDER</Button>
             </form>
         );
         if (this.state.loading) {
