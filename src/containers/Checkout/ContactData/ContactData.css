@@ -7,9 +7,11 @@
     box-sizing: border-box;
 }
 
-.Input{
-    display: block; /* (Before They were in a row) This will automatically add a line wrap (will bone in a line) because now it's a block element*/
-}
+/* We do not need this anymore because we have the stying in our Input component */
+/* (Before They were in a row) This will automatically add a line wrap (will bone in a line) because now it's a block element*/
+/* .Input{
+    display: block; 
+} */
 
 /* For limiting on big devices */
 @media (min-width: 600px) {
