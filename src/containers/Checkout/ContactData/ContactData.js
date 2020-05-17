@@ -21,6 +21,7 @@ class ContactData extends Component {
                     required: true
                 },
                 valid: false,//This can be a subkey ov validation
+                touched: false,//So that the Inputs are not red before we even type in them
             },
             street: {
                 elementType: 'input',
@@ -33,6 +34,7 @@ class ContactData extends Component {
                     required: true
                 },
                 valid: false,
+                touched: false,
             },
             zipCode: {
                 elementType: 'input',
@@ -47,6 +49,7 @@ class ContactData extends Component {
                     maxLength: 20
                 },
                 valid: false,
+                touched: false,
             },
             country: {//TODO Make country a dropdown, he said we can use some third party libraries (i do not know if it is for the dropdown or for getting all the countrie)
                 elementType: 'input',
@@ -59,6 +62,7 @@ class ContactData extends Component {
                     required: true
                 },
                 valid: false,
+                touched: false,
             },
             email: {
                 elementType: 'input',
@@ -71,6 +75,7 @@ class ContactData extends Component {
                     required: true
                 },
                 valid: false,
+                touched: false,
             },
             delivery: {
                 elementType: 'select',
@@ -146,7 +151,8 @@ class ContactData extends Component {
 
         updatedFormElement.value = event.target.value;
         updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
-        console.log(updatedFormElement);
+        updatedFormElement.touched = true;
+        // console.log(updatedFormElement);
         updatedOrderForm[inputIdentifier] = updatedFormElement;
         this.setState({ orderForm: updatedOrderForm });
     }
@@ -168,6 +174,9 @@ class ContactData extends Component {
                         elementType={formElement.config.elementType}
                         elementConfig={formElement.config.elementConfig}
                         value={formElement.config.value}
+                        invalid={!formElement.config.valid}
+                        shouldValidate={formElement.config.validation}//This is so that the inputs that do not have validations are not showned as with error
+                        touched={formElement.config.touched}
                         changed={(event) => this.inputChangedHandler(event, formElement.id)} />
                 ))}
                 <Button btnType="Success">ORDER</Button>
