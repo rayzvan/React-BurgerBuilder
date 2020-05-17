@@ -85,7 +85,8 @@ class ContactData extends Component {
                         { value: 'cheapest', displayValue: 'Cheapest' }
                     ]
                 },
-                value: '',
+                value: 'fastest',//We are giving it a value because it is a bug. If user does not change the item it will send the value as empty, even if he sees it as something selected
+                validation: {},//Now when it will have what to check in line 131 (first if in thecheckValidity), else it would have tried to check something undefiend
                 valid: true
             }
         },
