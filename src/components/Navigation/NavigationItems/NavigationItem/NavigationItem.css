@@ -17,7 +17,7 @@
 
 .NavigationItem a:hover,
 .NavigationItem a:active, /* these are links that are clicked on */
-.NavigationItem a.active{
+.NavigationItem a.active{ /* When we set up active here in CSS it won't come as active, it will use another unique name because we are using css modules */
     color: #40A4C8;
 }
 
