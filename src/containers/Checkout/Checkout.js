@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import CheckoutSummary from '../../components/Oreder/CheckoutSummary/CheckoutSummary'
-import { Route } from 'react-router-dom'
+import { Route, Redirect } from 'react-router-dom'
 import ContactData from './ContactData/ContactData'
 import { connect } from 'react-redux'
 
@@ -14,7 +14,7 @@ class Checkout extends Component {
     //  there is no way I can route to it without being mounted again, because it's not nested som some other page
     //componentDidMount() 
     //We use componentWillMount becausewe need to set the ingredients before we render the child component
-    componentWillMount(){
+    componentWillMount() {
         const query = new URLSearchParams(this.props.location.search);
         const ingredients = {};
         let price = 0;
@@ -40,23 +40,30 @@ class Checkout extends Component {
     }
 
     render() {
+        let summary = <Redirect to="/" />
+        if (this.props.ings) {
+            summary = (
+                <Fragment>
+                    <CheckoutSummary
+                        checkoutCanceled={this.checkoutCanceledHandler}
+                        checkoutContinued={this.checkoutContinuedHandler}
+                        ingredients={this.props.ings} />
+                    <Route
+                        path={this.props.match.path + '/contact-data'}
+                        // we are not render because we want to pass the ingredients to ContactData
+                        // component={ContactData}
+
+                        //WE USE THIS NOW BECAUSE WE HAVE REDUX AND DO NOT NEED TO PASS DATA TO COMPONENT MANUALLY
+                        component={ContactData}
+                    />
+                </Fragment>
+            )
+        }
         return (
             <div>
-                {/* THIS ARE DUMMY INGREDIENTS */}
-                <CheckoutSummary
-                    checkoutCanceled={this.checkoutCanceledHandler}
-                    checkoutContinued={this.checkoutContinuedHandler}
-                    ingredients={this.props.ings} />
-                <Route
-                    path={this.props.match.path + '/contact-data'}
-                    // we are not render because we want to pass the ingredients to ContactData
-                    // component={ContactData}
-                    
-                    //WE USE THIS NOW BECAUSE WE HAVE REDUX AND DO NOT NEED TO PASS DATA TO COMPONENT MANUALLY
-                    component={ContactData}
-                    />
+                {summary}
 
-                    {/* //WE COMMENTED THIS BECAYSE WE USE REDUX (VID 280 (Adjusting Checkout and..))
+                {/* //WE COMMENTED THIS BECAYSE WE USE REDUX (VID 280 (Adjusting Checkout and..))
                     render={(props) => (
                          <ContactData 
                          ingredients={this.props.ings} 
