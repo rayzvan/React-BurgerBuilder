@@ -5,10 +5,19 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter } from 'react-router-dom'
 
+import { Provider } from 'react-redux'
+import { createStore, combineReducers } from 'redux'
+
+import ingredientsReducer from './store/reducers/ingredients'
+
+const store = createStore(ingredientsReducer)
+
 const app = (
-    <BrowserRouter>
-        <App />
-    </BrowserRouter>
+    <Provider store={store} >
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
+    </Provider >
 )
 
 ReactDOM.render(app, document.getElementById('root'));
