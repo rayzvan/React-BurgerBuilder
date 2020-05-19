@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import CheckoutSummary from '../../components/Oreder/CheckoutSummary/CheckoutSummary'
 import { Route } from 'react-router-dom'
 import ContactData from './ContactData/ContactData'
+import { connect } from 'react-redux'
 
 class Checkout extends Component {
     state = {
@@ -45,20 +46,32 @@ class Checkout extends Component {
                 <CheckoutSummary
                     checkoutCanceled={this.checkoutCanceledHandler}
                     checkoutContinued={this.checkoutContinuedHandler}
-                    ingredients={this.state.ingredients} />
+                    ingredients={this.props.ings} />
                 <Route
                     path={this.props.match.path + '/contact-data'}
                     // we are not render because we want to pass the ingredients to ContactData
-                    // component={ContactData} 
+                    // component={ContactData}
+                    
+                    //WE USE THIS NOW BECAUSE WE HAVE REDUX AND DO NOT NEED TO PASS DATA TO COMPONENT MANUALLY
+                    component={ContactData}
+                    />
+
+                    {/* //WE COMMENTED THIS BECAYSE WE USE REDUX (VID 280 (Adjusting Checkout and..))
                     render={(props) => (
-                        <ContactData 
-                        ingredients={this.state.ingredients} 
-                        price={this.state.totalPrice}
-                        {...props}/>//Because we need the history in the ContactData so we can navigate from there
-                        )} />
+                         <ContactData 
+                         ingredients={this.props.ings} 
+                         price={this.state.price}
+                         {...props}/>//Because we need the history in the ContactData so we can navigate from there
+                         )} /> */}
             </div>
         )
     }
 }
 
-export default Checkout;
+const mapStateToProps = state => {
+    return {
+        ings: state.ingredients
+    }
+}
+
+export default connect(mapStateToProps)(Checkout);

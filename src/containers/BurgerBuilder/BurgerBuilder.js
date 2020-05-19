@@ -63,18 +63,18 @@ class BurgerBuilder extends Component {
     }
 
     purchaseContinueHandler = () => {
-        const queryParams = [];
-        for (let i in this.props.ings) {
-            //EncodeURIComponent encodes my elements in such a way it can be used in the URL
-            queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.props.ings[i]));
-        }
-        queryParams.push('price=' + this.props.price)
-        const queryString = queryParams.join('&');
-        this.props.history.push({
-            pathname: '/checkoutSummary',
-            search: queryString
-        })
-
+        //WE ARE NOT USING THIS ANYMORE BECAUSE WE CAN USE REDUX TO MANAGE TO GET THE STATE IN THE CHECKOUTSUMMARY
+        // const queryParams = [];
+        // for (let i in this.props.ings) {
+        //     //EncodeURIComponent encodes my elements in such a way it can be used in the URL
+        //     queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.props.ings[i]));
+        // }
+        // queryParams.push('price=' + this.props.price)
+        // const queryString = queryParams.join('&');
+        this.props.history.push('/checkoutSummary'
+            // {pathname: '/checkoutSummary',
+            // search: queryString}
+        )
     }
 
     render() {
