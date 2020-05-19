@@ -8,7 +8,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { createStore, combineReducers } from 'redux'
 
-import ingredientsReducer from './store/reducers/ingredients'
+import ingredientsReducer from './store/reducers/burgerBuilder'
 
 const store = createStore(ingredientsReducer, window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__())
 
