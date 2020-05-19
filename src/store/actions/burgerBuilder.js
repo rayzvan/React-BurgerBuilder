@@ -1,5 +1,4 @@
 import * as actionTypes from './actionTypes'
-import ingredients from '../reducers/burgerBuilder'
 import axios from '../../axios-orders'
 
 //we apply the convention of having the action creator name just as the identifier (ADD_INGREDIENT)

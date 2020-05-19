@@ -50,7 +50,14 @@ const ingredients = (state = initialState, action) => {
         case actionTypes.SET_INGREDIENT:
             return {
                 ...state,
-                ingredients: action.ingredients,
+                ingredients: {
+                    //This so when we save the data to our store and when we add the ingredients in our burger (on the UI), it has the ingredients in the exact order
+                    //The downside with this is that we only support these exact four ingredients
+                    salad: action.ingredients.salad,
+                    bacon: action.ingredients.bacon,
+                    cheese: action.ingredients.cheese,
+                    meat: action.ingredients.meat
+                },
                 error: false
             }
         case actionTypes.FETCH_INGREDIENT_FAILED:
@@ -61,7 +68,6 @@ const ingredients = (state = initialState, action) => {
         default:
             return state;
     }
-    return state;
 }
 
 export default ingredients;
