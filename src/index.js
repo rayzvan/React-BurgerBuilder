@@ -10,7 +10,7 @@ import { createStore, combineReducers } from 'redux'
 
 import ingredientsReducer from './store/reducers/ingredients'
 
-const store = createStore(ingredientsReducer)
+const store = createStore(ingredientsReducer, window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__())
 
 const app = (
     <Provider store={store} >
