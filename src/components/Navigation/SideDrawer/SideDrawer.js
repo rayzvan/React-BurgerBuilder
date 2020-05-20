@@ -20,7 +20,7 @@ const sideDrawer = (props) => {
                 </div>
                 {/* You can outsorce the nac to the NvigationItems just make sure to change the stying because now it is done in toolbar */}
                 <nav>
-                    <NavigationItems />
+                    <NavigationItems isAuthenticated={props.isAuth}/>
                 </nav>
             </div>
         </Fragment>
