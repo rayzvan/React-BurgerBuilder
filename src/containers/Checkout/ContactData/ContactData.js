@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import axios from '../../../axios-orders'
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler'
 import * as actions from '../../../store/actions/index'
+import { updateObject } from '../../../shared/utility'
 
 class ContactData extends Component {
 
@@ -121,18 +122,18 @@ class ContactData extends Component {
         this.props.onOrderBurger(order, this.props.token);
     }
 
-    checkValidity(value, rules){
+    checkValidity(value, rules) {
         let isValid = true;
 
-        if(rules.required){
+        if (rules.required) {
             isValid = value.trim() !== '' && isValid;
         }
 
-        if (rules.minLength){
+        if (rules.minLength) {
             isValid = value.length >= rules.minLength && isValid
         }
 
-        if (rules.maxLength){
+        if (rules.maxLength) {
             isValid = value.length <= rules.maxLength && isValid
         }
 
@@ -140,22 +141,29 @@ class ContactData extends Component {
     }
 
     inputChangedHandler = (event, inputIdentifier) => {
-        const updatedOrderForm = {
-            ...this.state.orderForm //This is not a deep clone for the objects inside the orderForm
-        };
+        //THIS IS HOW WE UPDATED WITHOUT USING THE UTILITY FUCNTIOn
+        // const updatedFormElement = {
+        //     ...updatedOrderForm[inputIdentifier]
+        // }
+        // updatedFormElement.value = event.target.value;
+        // updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
+        // updatedFormElement.touched = true;
 
-        const updatedFormElement = {
-            ...updatedOrderForm[inputIdentifier]
-        }
+        const updatedFormElement = updateObject(this.state.orderForm[inputIdentifier], {
+            value: event.target.value,
+            valid: this.checkValidity(event.target.value, this.state.orderForm[inputIdentifier].validation),
+            touched: true
+        })
 
-        updatedFormElement.value = event.target.value;
-        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
-        updatedFormElement.touched = true;
+        const updatedOrderForm = updateObject(this.state.orderForm, {
+            [inputIdentifier]: updatedFormElement
+        })
+
         // console.log(updatedFormElement);
-        updatedOrderForm[inputIdentifier] = updatedFormElement;
+        // updatedOrderForm[inputIdentifier] = updatedFormElement;//THIS IS HOW WE DID IT WITHOUT ISNG THE UTILITY FUNCTION
 
         let formIsValid = true;
-        for(let inputIdentifier in updatedOrderForm){
+        for (let inputIdentifier in updatedOrderForm) {
             formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid//now if one will be false, all will be false
         }
 

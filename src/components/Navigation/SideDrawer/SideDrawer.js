@@ -13,7 +13,9 @@ const sideDrawer = (props) => {
     return (
         <Fragment>
             <Backdrop show={props.open} clicked={props.closed}/>
-            <div className={attachedClasses.join(' ')}>
+            <div className={attachedClasses.join(' ')}
+                // THIS IS FOR CLOSING THE DRAWER. IT WILL CLOSE WHEN YOU PRESS ANYWHERE ON IT. YOU SHOULD DO IT SO IT WILL CLOSE ONLY WHEN TAPPING ON AN NAVIAGATION ITEM */
+                onClick={props.closed}>
                 {/*This is an approach. Another very good aproach is to use a property here and in the Toolbar and set with inline -style the percentage  */}
                 <div className={classes.Logo}> {/* We have the .Logo class defined in 3 different .css files, but due to css MODULES, this is actually converted to three different css classes so that they do not interfere  */}
                     <Logo />

@@ -9,6 +9,8 @@ import { Redirect } from 'react-router-dom'
 
 import * as actions from '../../store/actions/index'
 
+import { updateObject } from '../../shared/utility'
+
 class Auth extends Component {
     state = {
         controls: {
@@ -70,15 +72,26 @@ class Auth extends Component {
     }
 
     inputChangedHandler = (event, controlName) => {
-        const updatedControls = {
-            ...this.state.controls, //This is not a deep clone for the objects inside the orderForm
-            [controlName]: {
-                ...this.state.controls[controlName],
+        //THIS IS HOW WE DID IT BEFORE USING UTILITY FUNCTION
+        // const updatedControls = {
+        //     ...this.state.controls, //This is not a deep clone for the objects inside the orderForm
+        //     [controlName]: {
+        //         ...this.state.controls[controlName],
+        //         value: event.target.value,
+        //         valid: this.checkValidity(event.target.value, this.state.controls[controlName].validation),
+        //         touched: true
+        //     }
+        // };
+
+        //TODO THERE ARE MORE PLACES IN THE APPLICATION WHERE YOU CAN USE IT
+        const updatedControls = updateObject(this.state.controls, {
+            [controlName]: updateObject(this.state.controls[controlName], {
                 value: event.target.value,
                 valid: this.checkValidity(event.target.value, this.state.controls[controlName].validation),
                 touched: true
-            }
-        };
+            })
+        })
+
         this.setState({ controls: updatedControls });
     }
 

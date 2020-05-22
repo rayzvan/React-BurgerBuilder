@@ -3,9 +3,3 @@
     width: 80%;
     margin: auto; /*To center the div*/
 }
-
-@media(min-width:600px){
-    .CheckoutSummary{
-        width: 500px;
-    }
-}
