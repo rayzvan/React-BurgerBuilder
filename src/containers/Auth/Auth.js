@@ -47,7 +47,7 @@ class Auth extends Component {
     componentDidMount() {
         //THAT MEANS WE TRY AND REDIRECT TO CHECKOUT SUMMART EVEN TOUGH WE ARE NOT BUILDING A BURGER
         if (!this.props.buildingBurger && this.props.authRedirectPath !== '/') {
-            this.onSetAuthRedirectPath();
+            this.props.onSetAuthRedirectPath();
         }
     }
 
