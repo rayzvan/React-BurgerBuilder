@@ -18,7 +18,7 @@ const withErrorHandler = (WrappedComponent, axios) => {
         componentWillMount() {
             this.reqInterceptor = axios.interceptors.request.use(req => {
                 this.setState({ error: null })
-                console.log("COMPONENT WILL MOUNT REQUEST INTERCEPTOPR")
+                // console.log("COMPONENT WILL MOUNT REQUEST INTERCEPTOPR")
                 return req;
             });
             //This worked gread for POST requests in the componentDidMount
@@ -33,7 +33,7 @@ const withErrorHandler = (WrappedComponent, axios) => {
         //This is a lifecycle method which is executed at the point of time a component isn't required anymore
         // We want to remove an interceptor here because (WATCH VIDEO 185)
         componentWillUnmount() {
-            console.log('will unomunt', this.reqInterceptor, this.resInterceptors)//watch for the namings because console will not give you warning ant it will still work
+            // console.log('will unomunt', this.reqInterceptor, this.resInterceptors)//watch for the namings because console will not give you warning ant it will still work
             //This just ensures that wenever we do not need the burger builder component anymore 
             axios.interceptors.request.eject(this.reqInterceptor);
             axios.interceptors.response.eject(this.resInterceptors);
