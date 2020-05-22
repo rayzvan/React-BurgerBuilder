@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Layout from './hoc/Layout/Layout';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 import Checkout from './containers/Checkout/Checkout';
-import { Route, Switch, withRouter } from 'react-router-dom'
+import { Route, Switch, withRouter, Redirect } from 'react-router-dom'
 import Orders from './containers/Orders/Orders'
 import Auth from './containers/Auth/Auth'
 import Logout from './containers/Auth/Logout/Logout'
@@ -28,21 +28,41 @@ class App extends Component {
   }
 
   render() {
+    let routes = (
+      <Switch>{/* THIS IS THE ROUTING SETUP FOR UNAUTHENTICATED USERS */}
+        <Route path='/auth' component={Auth} />
+        <Route path='/' component={BurgerBuilder} />
+        <Redirect to="/"/>
+      </Switch>
+    );
+
+    if (this.props.isAuthenticated) {
+      routes = (
+        <Switch>{/* THIS IS THE ROUTING SETUP FOR UNAUTHENTICATED USERS */}
+          {/* {this.state.show ? <BurgerBuilder /> : null} */}
+          {/* If we want to use without exact we need to use a Switchm because if we go to checkOutSummary the BurgerBuilder will also be loaded  */}
+          <Route path='/checkoutSummary' component={Checkout} />
+          <Route path='/orders' component={Orders} />
+          <Route path='/logout' component={Logout} />
+          <Route path='/' component={BurgerBuilder} />
+          <Redirect to="/"/>
+        </Switch>
+      );
+    }
+
     return (
       <div>
         <Layout>
-          <Switch>
-            {/* {this.state.show ? <BurgerBuilder /> : null} */}
-            {/* If we want to use without exact we need to use a Switchm because if we go to checkOutSummary the BurgerBuilder will also be loaded  */}
-            <Route path='/checkoutSummary' component={Checkout} />
-            <Route path='/orders' component={Orders} />
-            <Route path='/auth' component={Auth} />
-            <Route path='/logout' component={Logout} />
-            <Route path='/' component={BurgerBuilder} />
-          </Switch>
+          {routes}
         </Layout>
-      </div>
+      </div >
     );
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.token !== null
   }
 }
 
@@ -52,4 +72,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default withRouter(connect(null, mapDispatchToProps)(App));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
