@@ -7,7 +7,6 @@ import { connect } from 'react-redux'
 import * as actions from './store/actions/index'
 import asyncComponent from './hoc/asyncComponent/asyncComponent';
 
-//!!!!! **** THIS WIL ACTUALLY NOT WORK IF is called Async.. instead of async.. !!! ****
 const asyncOrders = asyncComponent(() => {
   return import('./containers/Orders/Orders');
 })
@@ -21,42 +20,27 @@ const asyncCheckout = asyncComponent(() => {
 })
 
 class App extends Component {
-
-  //TO make sure the burger builder dissapears after a while
-  //and test fo componentWillUnmount() to see if the interceptors are ejected
-  // state = {
-  //   show: true
-  // }
-
-  // componentDidMount() {
-  //   setTimeout(() => {
-  //     this.setState({ show: false })
-  //   }, 5000)
-  // }
-
   componentDidMount() {
     this.props.onTryAutoLogin();
   }
 
   render() {
     let routes = (
-      <Switch>{/* THIS IS THE ROUTING SETUP FOR UNAUTHENTICATED USERS */}
+      <Switch>
         <Route path='/auth' component={asyncAuth} />
         <Route path='/' component={BurgerBuilder} />
-        <Redirect to="/"/>
+        <Redirect to="/" />
       </Switch>
     );
 
     if (this.props.isAuthenticated) {
       routes = (
-        <Switch>{/* THIS IS THE ROUTING SETUP FOR UNAUTHENTICATED USERS */}
-          {/* {this.state.show ? <BurgerBuilder /> : null} */}
-          {/* If we want to use without exact we need to use a Switchm because if we go to checkOutSummary the BurgerBuilder will also be loaded  */}
+        <Switch>
           <Route path='/checkoutSummary' component={asyncCheckout} />
           <Route path='/orders' component={asyncOrders} />
           <Route path='/logout' component={Logout} />
           <Route path='/' component={BurgerBuilder} />
-          <Redirect to="/"/>
+          <Redirect to="/" />
         </Switch>
       );
     }

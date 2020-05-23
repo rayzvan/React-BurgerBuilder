@@ -7,40 +7,20 @@ import { connect } from 'react-redux'
 import Spinner from '../../components/UI/Spinner/Spinner'
 
 class Orders extends Component {
-    //we use redux instead
-    // state = {
-    //     orders: [],
-    //     loading: true
-    // }
-    //We use componentDidMount because we only want to fetch the orders when this page is loaded
     componentDidMount() {
-        //WE MOVED THIS INTO ORDER ACTIONS
-        // axios.get('/orders.json')
-        //     .then(res => {
-        //         const fetchedOrders = [];
-        //         for (let key in res.data) {
-        //             fetchedOrders.push({
-        //                 ...res.data[key],
-        //                 id: key
-        //             });
-        //         }
-        //         this.setState({ loading: false, orders: fetchedOrders })
-        //     }).catch(err => {
-        //         this.setState({ loading: false })
-        //     })
         this.props.onFetchOrders(this.props.token, this.props.userId);//TODO After implmenting commit #55, the Orers page does not work if there is no order, FIX THIS
     }
 
     render() {
 
-        let orders = <Spinner/>
-        if(!this.props.loading){
+        let orders = <Spinner />
+        if (!this.props.loading) {
             orders = this.props.orders.map(order => (
-                    <Order
-                        key={order.id}
-                        ingredients={order.ingredients}
-                        price={+order.price} /* We use + to make it from a strin, a number */ />
-                )
+                <Order
+                    key={order.id}
+                    ingredients={order.ingredients}
+                    price={+order.price} />
+            )
             )
         }
 

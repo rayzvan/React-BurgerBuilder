@@ -11,10 +11,6 @@ import { connect } from 'react-redux'
 import * as actions from '../../store/actions/index'
 
 class BurgerBuilder extends Component {
-    // constructor(props){
-    //     super (props);
-    //     this.state = {...}
-    // } the below method is a bit more modern because it's shorter syntax
     state = {
         purchasing: false,
     }
@@ -24,7 +20,7 @@ class BurgerBuilder extends Component {
     }
 
     updatePurchesState(ingredients) {
-        const sum = Object.keys(ingredients)//YOU CAN NOT PASS ANYTHING AND JUST USE THE this.props.ings
+        const sum = Object.keys(ingredients)
             .map(igKey => {
                 return ingredients[igKey];
             }).reduce((sum, el) => {
@@ -33,14 +29,6 @@ class BurgerBuilder extends Component {
 
         return sum > 0;
     }
-
-    // This Will not work correctly, at leas if we want to use the "this." keyword if the method is triggered trough an event
-    // do to the way the "this" keyword works in Javascript, it will then not refer to the class
-    // that's why we need the arrow functions, which in the end are still methods, but internally, they take advantage of arrow functions which basically
-    //  contain the state of the context of "this" 
-    // purchaseHandler(){
-    //     this.setState)_
-    // }
 
     purchaseHandler = () => {
         if(this.props.isAuthenticated){
@@ -58,19 +46,7 @@ class BurgerBuilder extends Component {
 
     purchaseContinueHandler = () => {
         this.props.onInitPurchase();
-
-        //WE ARE NOT USING THIS ANYMORE BECAUSE WE CAN USE REDUX TO MANAGE TO GET THE STATE IN THE CHECKOUTSUMMARY
-        // const queryParams = [];
-        // for (let i in this.props.ings) {
-        //     //EncodeURIComponent encodes my elements in such a way it can be used in the URL
-        //     queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.props.ings[i]));
-        // }
-        // queryParams.push('price=' + this.props.price)
-        // const queryString = queryParams.join('&');
-        this.props.history.push('/checkoutSummary'
-            // {pathname: '/checkoutSummary',
-            // search: queryString}
-        )
+        this.props.history.push('/checkoutSummary')
     }
 
     render() {
@@ -83,7 +59,6 @@ class BurgerBuilder extends Component {
 
         let burger = this.props.error ? <p>Ingredients can't be loaded</p> : <Spinner />
 
-        //We do this because when we open the app, the ingredients is null unti data is fetched from the server so an exception will be trhown
         if (this.props.ings) {
             burger = (
                 <Fragment>
@@ -107,11 +82,6 @@ class BurgerBuilder extends Component {
                     ingredients={this.props.ings} />
             )
         }
-
-        //THIS IS NOT REQUIRED HERE ANYMORE BECAUSE WE ARE NOT DOING ANYTHING ASYNCHRONOUS WHEN VIEWING THE ORDER SUMMARY
-        // if (this.state.loading) {
-        //     orderSummary = <Spinner />
-        // }
 
         return (
             <Fragment>

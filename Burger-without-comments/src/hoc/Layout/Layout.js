@@ -12,11 +12,7 @@ class Layout extends Component {
         this.setState({ showSideDrawer: false })
     }
 
-    //This actually works as a toggle but we cannot use it in our app because the side drawer covers it. But in case we may want to put it somehere in the app it does have the functionality
     sideDraweToggleHandler = () => {
-        //You should not do it like this because do the the asynchronus nature of seState this may lead to unespected outcomes
-        // this.setState({ showSideDrawer: !this.state.showSideDrawer })
-
         this.setState((prevState) => {
             return {showSideDrawer: !prevState.showSideDrawer}
         })

@@ -28,7 +28,7 @@ const input = (props) => {
             inputElement = <select
                 className={inputClasses.join(' ')}
                 onChange={props.changed}
-                value={props.value}>{/* To have value on select is import to have two way binding */}
+                value={props.value}>
                 {props.elementConfig.options.map(option => (
                     <option
                         key={option.value}

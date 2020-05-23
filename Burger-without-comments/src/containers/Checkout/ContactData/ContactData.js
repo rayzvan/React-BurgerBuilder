@@ -24,8 +24,8 @@ class ContactData extends Component {
                 validation: {
                     required: true
                 },
-                valid: false,//This can be a subkey ov validation
-                touched: false,//So that the Inputs are not red before we even type in them
+                valid: false,
+                touched: false,
             },
             street: {
                 elementType: 'input',
@@ -89,22 +89,16 @@ class ContactData extends Component {
                         { value: 'cheapest', displayValue: 'Cheapest' }
                     ]
                 },
-                value: 'fastest',//We are giving it a value because it is a bug. If user does not change the item it will send the value as empty, even if he sees it as something selected
-                validation: {},//Now when it will have what to check in line 131 (first if in thecheckValidity), else it would have tried to check something undefiend
+                value: 'fastest',
+                validation: {},
                 valid: true
             }
         },
         formIsValid: false,
-        //WE ARE NOT USING THIS HERE BECAUSE IS MANAGED IN THE STORE WITH REDUX
-        // loading: false
     }
 
     orderHandler = (event) => {
-        event.preventDefault();//To prevent the default which is to send a request which we do not want because it will reload our form
-        //alert('You have continued!');
-
-        //BECAUSE OF REDUX WE NO LONGER HANDLE LOADING HERE
-        // this.setState({ loading: true });
+        event.preventDefault();
 
         const formData = {};
         for (let formElementIdentifier in this.state.orderForm) {
@@ -113,7 +107,6 @@ class ContactData extends Component {
 
         const order = {
             ingredients: this.props.ings,
-            //!!!! **** This price needs to be calculated on the server so that the user cannot manipulate the price you are using ****!!!!!
             price: this.props.price,
             orderData: formData,
             userId: this.props.userId
@@ -123,14 +116,6 @@ class ContactData extends Component {
     }
 
     inputChangedHandler = (event, inputIdentifier) => {
-        //THIS IS HOW WE UPDATED WITHOUT USING THE UTILITY FUCNTIOn
-        // const updatedFormElement = {
-        //     ...updatedOrderForm[inputIdentifier]
-        // }
-        // updatedFormElement.value = event.target.value;
-        // updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
-        // updatedFormElement.touched = true;
-
         const updatedFormElement = updateObject(this.state.orderForm[inputIdentifier], {
             value: event.target.value,
             valid: checkValidity(event.target.value, this.state.orderForm[inputIdentifier].validation),
@@ -141,12 +126,9 @@ class ContactData extends Component {
             [inputIdentifier]: updatedFormElement
         })
 
-        // console.log(updatedFormElement);
-        // updatedOrderForm[inputIdentifier] = updatedFormElement;//THIS IS HOW WE DID IT WITHOUT ISNG THE UTILITY FUNCTION
-
         let formIsValid = true;
         for (let inputIdentifier in updatedOrderForm) {
-            formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid//now if one will be false, all will be false
+            formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid
         }
 
         this.setState({ orderForm: updatedOrderForm, formIsValid: formIsValid });
@@ -170,7 +152,7 @@ class ContactData extends Component {
                         elementConfig={formElement.config.elementConfig}
                         value={formElement.config.value}
                         invalid={!formElement.config.valid}
-                        shouldValidate={formElement.config.validation}//This is so that the inputs that do not have validations are not showned as with error
+                        shouldValidate={formElement.config.validation}
                         touched={formElement.config.touched}
                         changed={(event) => this.inputChangedHandler(event, formElement.id)} />
                 ))}

@@ -4,7 +4,7 @@ import { updateObject } from '../../shared/utility'
 const initialState = {
     orders: [],
     loading: false,
-    purchased: false// THIS CHANGES AS SOON AS WE DID SUCCESFULLY PURCHASED, BUT IS ALWAYS RESET WHEN WE VISIT THE CHECKOUT CONTAINER
+    purchased: false
 }
 
 const purchaseInit = (state, action) => {

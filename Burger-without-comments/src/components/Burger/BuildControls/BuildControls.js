@@ -2,7 +2,6 @@ import React from 'react';
 import classes from './BuildControls.css';
 import BuildControl from './BuildControl/BuildControl'
 
-//we want to have an array for which i can llop to convinently build all these BuildControls and render them
 const controls = [
     { label: 'Salad', type: 'salad' },
     { label: 'Bacon', type: 'bacon' },

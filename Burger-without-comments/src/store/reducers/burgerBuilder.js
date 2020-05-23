@@ -31,7 +31,7 @@ const removeIngredient = (state, action) => {
     const updatedIngrs = updateObject(state.ingredients, updatedIngr);
     const updatedSt = {
         ingredients: updatedIngrs,
-        totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName],
+        totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName],
         building: true
     }
     return updateObject(state, updatedSt);
@@ -40,8 +40,6 @@ const removeIngredient = (state, action) => {
 const setIngredients = (state, action) => {
     return updateObject(state, {
         ingredients: {
-            //This so when we save the data to our store and when we add the ingredients in our burger (on the UI), it has the ingredients in the exact order
-            //The downside with this is that we only support these exact four ingredients
             salad: action.ingredients.salad,
             bacon: action.ingredients.bacon,
             cheese: action.ingredients.cheese,
@@ -59,48 +57,11 @@ const fetchIngredientsFailed = (state, action) => {
 
 const ingredients = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.ADD_INGREDIENT:
-            return addIngredient(state, action);
-        //***THIS IS WHAT WE HAD BEFORE USING THE UTILITY FUNCTION updateObject
-        // return {
-        //     ...state,
-        //     ingredients: {
-        //         ...state.ingredients,
-        //         [action.ingredientName]: state.ingredients[action.ingredientName] + 1//this not not creted an array , it will be the name of the property name you want ES6
-        //     },
-        //     totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName]
-        // }
-        // ******* THE CODE ABOVE DOESWHAT THE CODE BELLOW DOES ******
-        // const oldCount = state.ingredients[action.ingredientType];
-        // const updatedCount = oldCount + 1;
-        // const updatedIngredients = {
-        //     ...state.ingredients
-        // }
-        // updatedIngredients[action.ingredientType] = updatedCount;
-        // const oldPrice = state.totalPrice;
-        // const updatedPrice = oldPrice + INGREDIENT_PRICES[action.ingredientType];
-        // return {
-        //     ...state,
-        //     ingredients: updatedIngredients,
-        //     totalPrice: updatedPrice
-        // }
-        case actionTypes.REMOVE_INGREDIENT:
-            return removeIngredient(state, action);
-        //***THIS IS WHAT WE HAVE BEFORE USING UTILITY FUNCTION LIKE ABOVE
-        // return {
-        //     ...state,
-        //     ingredients: {
-        //         ...state.ingredients,
-        //         [action.ingredientName]: state.ingredients[action.ingredientName] - 1//this not not creted an array , it will be the name of the property name you want ES6
-        //     },
-        //     totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName]
-        // }
-        case actionTypes.SET_INGREDIENT:
-            return setIngredients(state, action);
-        case actionTypes.FETCH_INGREDIENT_FAILED:
-            return fetchIngredientsFailed(state, action);
-        default:
-            return state;
+        case actionTypes.ADD_INGREDIENT: return addIngredient(state, action);
+        case actionTypes.REMOVE_INGREDIENT: return removeIngredient(state, action);
+        case actionTypes.SET_INGREDIENT: return setIngredients(state, action);
+        case actionTypes.FETCH_INGREDIENT_FAILED: return fetchIngredientsFailed(state, action);
+        default: return state;
     }
 }
 

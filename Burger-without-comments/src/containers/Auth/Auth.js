@@ -47,24 +47,12 @@ class Auth extends Component {
     }
 
     componentDidMount() {
-        //THAT MEANS WE TRY AND REDIRECT TO CHECKOUT SUMMART EVEN TOUGH WE ARE NOT BUILDING A BURGER
         if (!this.props.buildingBurger && this.props.authRedirectPath !== '/') {
             this.props.onSetAuthRedirectPath();
         }
     }
 
     inputChangedHandler = (event, controlName) => {
-        //THIS IS HOW WE DID IT BEFORE USING UTILITY FUNCTION
-        // const updatedControls = {
-        //     ...this.state.controls, //This is not a deep clone for the objects inside the orderForm
-        //     [controlName]: {
-        //         ...this.state.controls[controlName],
-        //         value: event.target.value,
-        //         valid: this.checkValidity(event.target.value, this.state.controls[controlName].validation),
-        //         touched: true
-        //     }
-        // };
-
         //TODO THERE ARE MORE PLACES IN THE APPLICATION WHERE YOU CAN USE IT
         const updatedControls = updateObject(this.state.controls, {
             [controlName]: updateObject(this.state.controls[controlName], {

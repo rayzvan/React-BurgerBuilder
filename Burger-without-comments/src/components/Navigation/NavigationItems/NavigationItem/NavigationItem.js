@@ -6,10 +6,8 @@ const navigationItem = (props) => (
     <li className={classes.NavigationItem}>
         <NavLink
             to={props.link}
-            exact={props.exact} /* we use it because otherwise the / nothing will also be treated as active because is included in /orders */
-            activeClassName={classes.active}>{/* This will be our active class name as our css modules transformations spits it out */}
-            {/* we do not need the className with NavLink to determene if is active or not, it will automaticalli determine this */}
-            {/*className={props.active ? classes.active : null} */}
+            exact={props.exact}
+            activeClassName={classes.active}>
             {props.children}
         </NavLink>
     </li>

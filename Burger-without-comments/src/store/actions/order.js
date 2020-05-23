@@ -26,7 +26,6 @@ export const purchaseOrderStart = () => {
 export const purchaseBurger = (orderData, token) => {
     return dispatch => {
         dispatch(purchaseOrderStart());
-        //the .json is for firbase, this is to function correctly
         axios.post('/orders.json?auth=' + token, orderData)
             .then(response => {
                 dispatch(purchaseBurgerSucces(response.data, orderData))

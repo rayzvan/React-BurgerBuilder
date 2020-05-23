@@ -8,7 +8,6 @@ const checkoutSummary = (props) => {
     return (
         <div className={classes.CheckoutSummary}>
             <h1>We hope it tastes well!</h1>
-            {/* Widht is 100% to take advantage of the full width of Checkout summary component */}
             <div style={{ width: '100%', margin: 'auto' }}>
                 <Burger ingredients={props.ingredients} />
             </div>
