@@ -1,0 +1,9 @@
+.Backdrop {
+    width: 100%;
+    height: 100%;
+    position: fixed;/* This means it has a fixed position even as we scroll */
+    z-index: 100; /* So that is above the elements we want to have it sit above (this will become important later when we add a toolbar fo example)*/
+    left: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}

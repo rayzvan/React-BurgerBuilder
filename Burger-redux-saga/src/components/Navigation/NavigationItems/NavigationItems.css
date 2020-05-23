@@ -1,0 +1,15 @@
+.NavigationItems {
+    margin: 0;
+    padding: 0;
+    list-style: circle;/* because navigation items (this css class) is going to get added to unorderd list and we do not want to have the default list style there */
+    flex-flow: row;/* So the items are benith each other */
+    align-items: center; /* to make sure there are vertically centered */
+    height: 100%; /* to make sure it has the full lengthof the toolbar */
+}
+
+/* This is a media query for desktop devices */
+@media (min-width: 500px){
+    .NavigationItems{
+        display: flex; /* to allign the items next to each other */
+    }
+}
