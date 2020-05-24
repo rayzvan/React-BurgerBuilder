@@ -1,43 +1,41 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import CheckoutSummary from '../../components/Oreder/CheckoutSummary/CheckoutSummary'
 import { Route, Redirect } from 'react-router-dom'
 import ContactData from './ContactData/ContactData'
 import { connect } from 'react-redux'
 
-class Checkout extends Component {
+const checkout = (props) => {
 
-    checkoutCanceledHandler = () => {
-        this.props.history.goBack();
+    const checkoutCanceledHandler = () => {
+        props.history.goBack();
     }
 
-    checkoutContinuedHandler = () => {
-        this.props.history.replace('checkoutSummary/contact-data');
+    const checkoutContinuedHandler = () => {
+        props.history.replace('checkoutSummary/contact-data');
     }
 
-    render() {
-        let summary = <Redirect to="/" />
-        if (this.props.ings) {
-            const purchasedRedirect = this.props.purchased ? <Redirect to="/" /> : null;
-            summary = (
-                <Fragment>
-                    {purchasedRedirect}
-                    <CheckoutSummary
-                        checkoutCanceled={this.checkoutCanceledHandler}
-                        checkoutContinued={this.checkoutContinuedHandler}
-                        ingredients={this.props.ings} />
-                    <Route
-                        path={this.props.match.path + '/contact-data'}
-                        component={ContactData}
-                    />
-                </Fragment>
-            )
-        }
-        return (
-            <div>
-                {summary}
-            </div>
+    let summary = <Redirect to="/" />
+    if (props.ings) {
+        const purchasedRedirect = props.purchased ? <Redirect to="/" /> : null;
+        summary = (
+            <Fragment>
+                {purchasedRedirect}
+                <CheckoutSummary
+                    checkoutCanceled={checkoutCanceledHandler}
+                    checkoutContinued={checkoutContinuedHandler}
+                    ingredients={props.ings} />
+                <Route
+                    path={props.match.path + '/contact-data'}
+                    component={ContactData}
+                />
+            </Fragment>
         )
     }
+    return (
+        <div>
+            {summary}
+        </div>
+    )
 }
 
 const mapStateToProps = state => {
@@ -47,11 +45,4 @@ const mapStateToProps = state => {
     }
 }
 
-//RELATEDO TO {1}
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         onInitPurchase: () => dispatch(actions.purchaseInit())
-//     }
-// }
-
-export default connect(mapStateToProps)(Checkout);
+export default connect(mapStateToProps)(checkout);

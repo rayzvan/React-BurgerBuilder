@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useEffect } from 'react'
 import Order from '../../components/Oreder/Order'
 import axios from '../../axios-orders'
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
@@ -6,30 +6,27 @@ import * as actions from '../../store/actions/index'
 import { connect } from 'react-redux'
 import Spinner from '../../components/UI/Spinner/Spinner'
 
-class Orders extends Component {
-    componentDidMount() {
-        this.props.onFetchOrders(this.props.token, this.props.userId);//TODO After implmenting commit #55, the Orers page does not work if there is no order, FIX THIS
+const orders = (props) => {
+
+    useEffect(() => {
+        props.onFetchOrders(props.token, props.userId);//TODO After implmenting commit #55, the Orers page does not work if there is no order, FIX THIS
+    }, [])
+
+    let orders = <Spinner />
+    if (!props.loading) {
+        orders = props.orders.map(order => (
+            <Order
+                key={order.id}
+                ingredients={order.ingredients}
+                price={+order.price} />
+        ))
     }
 
-    render() {
-
-        let orders = <Spinner />
-        if (!this.props.loading) {
-            orders = this.props.orders.map(order => (
-                <Order
-                    key={order.id}
-                    ingredients={order.ingredients}
-                    price={+order.price} />
-            )
-            )
-        }
-
-        return (
-            <div>
-                {orders}
-            </div>
-        );
-    }
+    return (
+        <div>
+            {orders}
+        </div>
+    );
 }
 
 const mapStateToProps = state => {
@@ -47,4 +44,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(Orders, axios));//now for a 404 for example the error popup will appear
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(orders, axios));//now for a 404 for example the error popup will appear
