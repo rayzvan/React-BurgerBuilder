@@ -1,0 +1,33 @@
+
+/* He said this is a mobile layout syle */
+.Burger {
+    width: 100%;
+    margin: auto;
+    height: 250px;
+    overflow: scroll; /* Even if we build a bigger burger than 250px, we can simply scroll it and we do not overlap or cut of because we limit the height*/
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2rem;/* This is a unit with scaze it based on the default font size the selected */
+}
+
+/* this is for devices that are tall (portrait mode) */
+@media(min-width: 500px) and (min-height: 400px){
+    .Burger{
+        width: 350px;
+        height: 300px;
+    }
+}
+
+@media(min-width: 500px) and (min-height: 401px){
+    .Burger{
+        width: 450px;
+        height: 400px;
+    }
+}
+
+@media(min-width: 1000px) and (min-height: 700px){
+    .Burger{
+        width: 700px;
+        height: 600;
+    }
+}

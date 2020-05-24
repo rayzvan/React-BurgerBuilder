@@ -1,0 +1,22 @@
+.Auth {
+    margin: 20px auto; /* top and buttom are 20px and is centered with auto */
+    width: 80%;
+    text-align: center;
+    box-shadow: 0 2px 3px #ccc; /* This property and the other two from bellow are used for creating the the box*/ 
+    border: 1px solid #eee;
+    box-sizing: border-box;
+}
+
+/* We do not need this anymore because we have the stying in our Input component */
+/* (Before They were in a row) This will automatically add a line wrap (will bone in a line) because now it's a block element*/
+/* .Input{
+    display: block; 
+} */
+
+/* For limiting on big devices */
+@media (min-width: 600px) {
+    .Auth
+    {
+        width: 500px;
+    }
+}
