@@ -4,7 +4,7 @@ import Backdrop from '../Backdrop/Backdrop'
 
 const modal = (props) => (
     <Fragment>
-        <Backdrop show={props.show} clicked={props.modalClosed}/>
+        <Backdrop show={props.show} clicked={props.modalClosed} />
         <div
             style={{
                 transform: props.show ? 'translateY(0)' : 'translateY(-100vh)',
@@ -17,4 +17,8 @@ const modal = (props) => (
     </Fragment>
 );
 
-export default React.memo(modal);
+//WE IMPLEMENT WHAT WE ACTUALLY WANT TO COMPARE WITH MEMO, BECAUSE THERE IS NO NEED TO COMPARE ALL PROPERTIES
+export default React.memo(modal, (prevProps, nextProps) => {
+    return nextProps.show === prevProps.show &&
+        nextProps.children === prevProps.children
+});
