@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { Fragment } from 'react'
 import Modal from '../../components/UI/Modal/Modal'
 import useHttpErrorHandler from '../../hooks/http-error-handler'
 

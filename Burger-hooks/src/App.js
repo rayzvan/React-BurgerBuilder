@@ -20,9 +20,11 @@ const Checkout = React.lazy(() => {
 
 const app = (props) => {
 
+  const { onTryAutoLogin } = props;
+
   useEffect(() => {
-    props.onTryAutoLogin();
-  }, [])
+    onTryAutoLogin();
+  }, [onTryAutoLogin])
 
   let routes = (
     <Switch>

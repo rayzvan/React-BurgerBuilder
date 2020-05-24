@@ -8,9 +8,11 @@ import Spinner from '../../components/UI/Spinner/Spinner'
 
 const orders = (props) => {
 
+    const { onFetchOrders } = props;
+
     useEffect(() => {
-        props.onFetchOrders(props.token, props.userId);//TODO After implmenting commit #55, the Orers page does not work if there is no order, FIX THIS
-    }, [])
+        onFetchOrders(props.token, props.userId);//TODO After implmenting commit #55, the Orers page does not work if there is no order, FIX THIS
+    }, [onFetchOrders])
 
     let orders = <Spinner />
     if (!props.loading) {
